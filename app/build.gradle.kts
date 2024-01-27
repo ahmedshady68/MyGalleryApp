@@ -1,7 +1,8 @@
 plugins {
     alias(gallery.plugins.android.application)
     alias(gallery.plugins.kotlin)
-    alias(gallery.plugins.ksp)
+    alias(gallery.plugins.kotlin.ksp)
+    alias(gallery.plugins.hilt)
 }
 
 android {
@@ -56,23 +57,19 @@ dependencies {
     implementation(gallery.bundles.androidx.annotation)
     implementation(gallery.bundles.androidx.collection)
     implementation(gallery.bundles.androidx.concurrent)
-    implementation(gallery.bundles.androidx.lifecycle)
     implementation(gallery.bundles.androidx.appcompat)
-    implementation(gallery.bundles.androidx.fragment)
-    implementation(gallery.bundles.androidx.window)
+    implementation(gallery.bundles.androidx.navigation)
+    implementation(gallery.bundles.androidx.compose)
     implementation(gallery.bundles.androidx.activity)
-    implementation(gallery.bundles.androidx.compose.ui)
-    implementation(gallery.bundles.androidx.compose.foundation)
-    debugImplementation(gallery.bundles.androidx.compose.ui.tooling)
-    implementation(gallery.bundles.androidx.compose.material)
-    implementation(gallery.bundles.androidx.compose.material3)
+    implementation(gallery.bundles.androidx.fragment)
+    implementation(gallery.bundles.androidx.lifecycle)
+    implementation(gallery.bundles.androidx.camera)
+    implementation(gallery.bundles.androidx.window)
+    implementation(gallery.bundles.hilt)
+    implementation(gallery.bundles.coil)
     implementation(gallery.okhttp)
-    implementation(gallery.bundles.glide)
-    implementation(gallery.glide.compose)
-    ksp(gallery.glide.ksp)
-    testImplementation(gallery.junit)
-    androidTestImplementation(gallery.androidx.test.junit)
-    androidTestImplementation(gallery.androidx.test.espresso)
-    androidTestImplementation(gallery.androidx.compose.ui.test.junit)
-    androidTestImplementation(gallery.androidx.window.testing)
+
+    ksp(gallery.bundles.hilt.compiler)
+
+    debugImplementation(gallery.bundles.androidx.compose.tooling)
 }
