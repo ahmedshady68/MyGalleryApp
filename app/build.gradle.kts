@@ -24,7 +24,7 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -63,13 +63,16 @@ dependencies {
     implementation(gallery.bundles.androidx.activity)
     implementation(gallery.bundles.androidx.fragment)
     implementation(gallery.bundles.androidx.lifecycle)
-    implementation(gallery.bundles.androidx.camera)
     implementation(gallery.bundles.androidx.window)
     implementation(gallery.bundles.hilt)
     implementation(gallery.bundles.coil)
     implementation(gallery.okhttp)
-
+    implementation(gallery.bundles.androidx.work)
+    implementation(gallery.material)
     ksp(gallery.bundles.hilt.compiler)
-
     debugImplementation(gallery.bundles.androidx.compose.tooling)
+    implementation(gallery.androidx.recyclerview)
+    implementation(gallery.androidx.startup)
+    implementation(gallery.bundles.androidx.transition)
+    implementation(gallery.bundles.androidx.arch.core)
 }
