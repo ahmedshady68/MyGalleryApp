@@ -2,21 +2,42 @@ package com.shady.mygalleryapp.main.ui
 
 
 import android.Manifest
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
+import android.provider.Settings
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LifecycleEventEffect
+import com.shady.mygalleryapp.R
+import com.shady.mygalleryapp.core.ui.component.GalleryMessage
+import com.shady.mygalleryapp.core.ui.component.GalleryOutlinedButton
 import com.shady.mygalleryapp.core.util.permissions.checkAllPermissionsGranted
 import com.shady.mygalleryapp.feature.images.ui.ImagesScreen
 import com.shady.mygalleryapp.feature.images.ui.ImagesScreenUiState
+import kotlinx.coroutines.launch
 
 @Composable
 fun GalleryApp(appState: GalleryAppState = rememberGalleryAppState()) {
@@ -58,6 +79,55 @@ fun GalleryApp(appState: GalleryAppState = rememberGalleryAppState()) {
             ImagesScreen(uiState = ImagesScreenUiState.Images(emptyList()))
         } else {
             // Permissions Not Granted
+            val message = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                stringResource(id = R.string.no_images_permission)
+            } else {
+                stringResource(id = R.string.no_storage_permission)
+            }
+            val mediaPermissionsLauncher = rememberLauncherForActivityResult(
+                contract = ActivityResultContracts.RequestMultiplePermissions()
+            ) { grantResult ->
+                permissionsGranted = checkAllPermissionsGranted(grantResult)
+            }
+            val settingsLauncher = rememberLauncherForActivityResult(
+                contract = ActivityResultContracts.StartActivityForResult()
+            ) {
+                permissionsGranted =
+                    appContextUpdated.checkAllPermissionsGranted(mediaPermissionsUpdated)
+            }
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                GalleryMessage(
+                    text = message,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp)
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                GalleryOutlinedButton(text = stringResource(id = R.string.open_settings)) {
+                    appState.coroutineScope.launch {
+                        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                        intent.data = Uri.fromParts(
+                            "package",
+                            appContextUpdated.packageName,
+                            null
+                        )
+                        settingsLauncher.launch(intent)
+                    }
+                }
+            }
+            LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
+                permissionsGranted =
+                    appContextUpdated.checkAllPermissionsGranted(mediaPermissionsUpdated)
+            }
+            LaunchedEffect(Unit) {
+                appState.coroutineScope.launch {
+                    mediaPermissionsLauncher.launch(mediaPermissionsUpdated)
+                }
+            }
         }
     }
 }
