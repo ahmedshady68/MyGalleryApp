@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.shady.mygalleryapp.main.ui.GalleryApp
-import com.shady.mygalleryapp.ui.theme.MyGalleryAppTheme
+import com.shady.mygalleryapp.core.ui.theme.MyGalleryAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
