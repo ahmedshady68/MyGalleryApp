@@ -35,11 +35,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.compose.LifecycleEventEffect
 import com.shady.mygalleryapp.R
 import com.shady.mygalleryapp.core.navigation.destination.TopLevelNavigationDestination
 import com.shady.mygalleryapp.core.ui.component.GalleryMessage
 import com.shady.mygalleryapp.core.ui.component.GalleryOutlinedButton
+import com.shady.mygalleryapp.core.ui.effect.LifecycleEventEffect
 import com.shady.mygalleryapp.core.util.permissions.checkAllPermissionsGranted
 import com.shady.mygalleryapp.main.navigation.GalleryNavHost
 import kotlinx.coroutines.launch
