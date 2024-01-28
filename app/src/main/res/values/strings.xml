@@ -4,4 +4,11 @@
     <string name="gallery_ui_state_no_permission_images">Images permission needed</string>
     <string name="gallery_ui_state_no_permission_storage">Permission required to access the storage</string>
     <string name="gallery_ui_state_error">An unexpected error occurred</string>
+    <string name="image_error">Error loading image</string>
+    <string name="image_loading">Loading image</string>
+    <string name="image">Image</string>
+    <string name="video">Video</string>
+    <string name="loading_message">Loading</string>
+    <string name="no_images_found">No images found</string>
+    <string name="unexpected_error">An unexpected error occurred</string>
 </resources>

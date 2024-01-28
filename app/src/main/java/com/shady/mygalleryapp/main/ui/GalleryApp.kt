@@ -11,6 +11,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import com.shady.mygalleryapp.feature.images.ImagesScreen
+import com.shady.mygalleryapp.feature.images.ImagesScreenUiState
 
 @Composable
 fun GalleryApp() {
@@ -45,6 +47,7 @@ fun GalleryApp() {
     ) {
         if (true) {
             // if Permissions Granted
+            ImagesScreen(uiState = ImagesScreenUiState.Images(emptyList()))
         } else {
             // Permissions Not Granted
         }
