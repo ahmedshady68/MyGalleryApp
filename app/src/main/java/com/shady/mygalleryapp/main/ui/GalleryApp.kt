@@ -9,13 +9,18 @@ import android.provider.Settings
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -32,11 +37,11 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import com.shady.mygalleryapp.R
+import com.shady.mygalleryapp.core.navigation.destination.TopLevelNavigationDestination
 import com.shady.mygalleryapp.core.ui.component.GalleryMessage
 import com.shady.mygalleryapp.core.ui.component.GalleryOutlinedButton
 import com.shady.mygalleryapp.core.util.permissions.checkAllPermissionsGranted
-import com.shady.mygalleryapp.feature.images.ui.ImagesScreen
-import com.shady.mygalleryapp.feature.images.ui.ImagesScreenUiState
+import com.shady.mygalleryapp.main.navigation.GalleryNavHost
 import kotlinx.coroutines.launch
 
 @Composable
@@ -76,7 +81,49 @@ fun GalleryApp(appState: GalleryAppState = rememberGalleryAppState()) {
             // if Permissions Granted
             val currentDestinations = appState.topLevelNavigationDestinations
             val currentDestination = appState.currentNavigationDestination
-            ImagesScreen(uiState = ImagesScreenUiState.Images(emptyList()))
+            Box(modifier = Modifier.fillMaxSize()) {
+                GalleryNavHost(
+                    appState = appState,
+                    modifier = Modifier.matchParentSize()
+                )
+                if (currentDestination is TopLevelNavigationDestination) {
+                    NavigationBar(
+                        containerColor = MaterialTheme.colorScheme.background.copy(alpha = 0.75f),
+                        contentColor = MaterialTheme.colorScheme.onBackground,
+                        modifier = Modifier
+                            .align(Alignment.BottomStart)
+                            .fillMaxWidth()
+                            .height(64.dp)
+                    ) {
+                        currentDestinations.forEach { destination ->
+                            val selected = destination == currentDestination
+                            NavigationBarItem(
+                                selected = selected,
+                                colors = NavigationBarItemDefaults.colors(
+                                    selectedIconColor = MaterialTheme.colorScheme.onPrimary,
+                                    unselectedIconColor = MaterialTheme.colorScheme.onBackground,
+                                    indicatorColor = MaterialTheme.colorScheme.primary
+                                ),
+                                onClick = {
+                                    appState.coroutineScope.launch {
+                                        appState.navigateToTopLevelDestination(destination)
+                                    }
+                                },
+                                icon = {
+                                    Icon(
+                                        imageVector = if (selected) {
+                                            destination.selectedIcon
+                                        } else {
+                                            destination.unselectedIcon
+                                        },
+                                        contentDescription = stringResource(id = destination.titleRes)
+                                    )
+                                },
+                            )
+                        }
+                    }
+                }
+            }
         } else {
             // Permissions Not Granted
             val message = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {

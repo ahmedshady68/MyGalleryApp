@@ -51,7 +51,7 @@ fun ImagesScreen(
             }
 
             ImagesScreenUiState.Loading -> {
-                GalleryLoadingIndicator(modifier = Modifier.matchParentSize())
+                // GalleryLoadingIndicator(modifier = Modifier.matchParentSize())
             }
 
             is ImagesScreenUiState.Images -> {
