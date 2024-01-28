@@ -1,4 +1,4 @@
-package com.shady.mygalleryapp.feature.images
+package com.shady.mygalleryapp.feature.images.ui
 
 import com.shady.mygalleryapp.core.data.model.MediaStoreFile
 

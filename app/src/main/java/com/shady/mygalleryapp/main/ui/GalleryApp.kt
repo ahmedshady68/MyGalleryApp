@@ -8,14 +8,18 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import com.shady.mygalleryapp.feature.images.ImagesScreen
-import com.shady.mygalleryapp.feature.images.ImagesScreenUiState
+import com.shady.mygalleryapp.core.util.permissions.checkAllPermissionsGranted
+import com.shady.mygalleryapp.feature.images.ui.ImagesScreen
+import com.shady.mygalleryapp.feature.images.ui.ImagesScreenUiState
 
 @Composable
-fun GalleryApp() {
+fun GalleryApp(appState: GalleryAppState = rememberGalleryAppState()) {
     val appContextUpdated by rememberUpdatedState(LocalContext.current.applicationContext)
     val mediaPermissionsUpdated by rememberUpdatedState(
         when {
@@ -38,15 +42,19 @@ fun GalleryApp() {
             }
         }
     )
-
+    var permissionsGranted by remember {
+        mutableStateOf(appContextUpdated.checkAllPermissionsGranted(mediaPermissionsUpdated))
+    }
     Surface(
         modifier = Modifier
             .fillMaxSize(),
         color = MaterialTheme.colorScheme.background,
         contentColor = MaterialTheme.colorScheme.onBackground
     ) {
-        if (true) {
+        if (permissionsGranted) {
             // if Permissions Granted
+            val currentDestinations = appState.topLevelNavigationDestinations
+            val currentDestination = appState.currentNavigationDestination
             ImagesScreen(uiState = ImagesScreenUiState.Images(emptyList()))
         } else {
             // Permissions Not Granted

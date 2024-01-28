@@ -1,4 +1,4 @@
-package com.shady.mygalleryapp.feature.images
+package com.shady.mygalleryapp.feature.images.ui
 
 import android.content.Context
 import androidx.lifecycle.viewModelScope

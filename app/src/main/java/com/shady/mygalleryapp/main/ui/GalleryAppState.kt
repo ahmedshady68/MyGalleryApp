@@ -7,28 +7,29 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.shady.mygalleryapp.core.navigation.buildRoute
 import com.shady.mygalleryapp.core.navigation.destination.NavigationDestination
 import com.shady.mygalleryapp.core.navigation.destination.TopLevelNavigationDestination
 import kotlinx.coroutines.CoroutineScope
 
 
 @Composable
-fun rememberSketchesAppState(
+fun rememberGalleryAppState(
     navController: NavHostController = rememberNavController(),
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
-): SketchesAppState =
+): GalleryAppState =
     remember(
         navController,
         coroutineScope
     ) {
-        SketchesAppState(
+        GalleryAppState(
             navController,
             coroutineScope
         )
     }
 
 @Stable
-class SketchesAppState(
+class GalleryAppState(
     val navController: NavHostController,
     val coroutineScope: CoroutineScope,
 ) {
@@ -49,4 +50,11 @@ class SketchesAppState(
 
     private val topLevelNavigationDestinationsInternal: MutableList<TopLevelNavigationDestination> =
         ArrayList()
+
+    fun registerNavigationDestination(destination: NavigationDestination) {
+        navigationDestinationsInternal[destination.buildRoute()] = destination
+        if (destination is TopLevelNavigationDestination) {
+            topLevelNavigationDestinationsInternal += destination
+        }
+    }
 }
