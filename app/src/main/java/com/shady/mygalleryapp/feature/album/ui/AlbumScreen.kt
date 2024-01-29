@@ -74,6 +74,7 @@ fun AlbumScreen(
 
             is AlbumScreenUiState.Error -> {
                 GalleryErrorMessage(
+                    thrown = uiState.thrown,
                     modifier = Modifier.matchParentSize()
                 )
             }

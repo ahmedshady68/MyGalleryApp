@@ -89,7 +89,8 @@ fun AlbumsScreen(
             }
 
             is AlbumsScreenUiState.Error -> {
-                GalleryErrorMessage( // should send the throwable
+                GalleryErrorMessage(
+                    thrown = uiState.thrown,
                     modifier = Modifier.matchParentSize()
                 )
             }

@@ -16,9 +16,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.shady.mygalleryapp.R
 import com.shady.mygalleryapp.core.ui.component.GalleryCenteredMessage
 import com.shady.mygalleryapp.core.ui.component.GalleryErrorMessage
-import com.shady.mygalleryapp.core.ui.component.GalleryLoadingIndicator
 import com.shady.mygalleryapp.core.ui.component.GalleryMediaVerticalGrid
 import com.shady.mygalleryapp.core.ui.component.GalleryTopAppBar
+import com.shady.mygalleryapp.feature.images.navigation.ImagesNavigationDestination
 
 @Composable
 fun ImagesRoute(
@@ -65,6 +65,7 @@ fun ImagesScreen(
 
             is ImagesScreenUiState.Error -> {
                 GalleryErrorMessage(
+                    thrown = uiState.thrown,
                     modifier = Modifier.matchParentSize()
                 )
             }
@@ -73,7 +74,7 @@ fun ImagesScreen(
             modifier = Modifier
                 .align(Alignment.TopStart)
                 .fillMaxWidth(),
-            text = "Gallery",
+            text = stringResource(id = ImagesNavigationDestination.titleRes),
             backgroundColor = MaterialTheme.colorScheme.background.copy(alpha = 0.75f),
         )
     }
