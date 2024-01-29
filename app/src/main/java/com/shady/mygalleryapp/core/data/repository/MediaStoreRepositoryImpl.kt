@@ -4,7 +4,7 @@ import android.content.ContentUris
 import android.content.Context
 import android.net.Uri
 import android.provider.MediaStore
-import com.shady.mygalleryapp.core.data.model.MediaStoreBucket
+import com.shady.mygalleryapp.core.data.model.MediaStoreAlbum
 import com.shady.mygalleryapp.core.data.model.MediaStoreFile
 import com.shady.mygalleryapp.core.data.model.MediaType
 import com.shady.mygalleryapp.core.util.data.contentUriFor
@@ -137,7 +137,7 @@ class MediaStoreRepositoryImpl(private val context: Context) : MediaStoreReposit
         }
     }
 
-    override suspend fun getBuckets(): List<MediaStoreBucket> {
+    override suspend fun getAlbums(): List<MediaStoreAlbum> {
         val bucketsInfo = LinkedHashMap<Long, BucketInfo>(256)
         collectBucketsInfo(
             MediaType.Image,
@@ -152,8 +152,8 @@ class MediaStoreRepositoryImpl(private val context: Context) : MediaStoreReposit
             .also { buckets -> buckets.sortByDescending { bucket -> bucket.coverDateAdded } }
     }
 
-    private fun BucketInfo.toBucket(): MediaStoreBucket =
-        MediaStoreBucket(
+    private fun BucketInfo.toBucket(): MediaStoreAlbum =
+        MediaStoreAlbum(
             id,
             name,
             size,

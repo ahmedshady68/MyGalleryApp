@@ -55,11 +55,9 @@ fun GalleryApp(appState: GalleryAppState = rememberGalleryAppState()) {
                     Manifest.permission.READ_MEDIA_VIDEO
                 )
             }
-
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> {
                 arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
             }
-
             else -> {
                 arrayOf(
                     Manifest.permission.READ_EXTERNAL_STORAGE,
