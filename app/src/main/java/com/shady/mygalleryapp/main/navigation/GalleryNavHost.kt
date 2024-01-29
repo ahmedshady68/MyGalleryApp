@@ -13,6 +13,8 @@ import com.shady.mygalleryapp.feature.albums.navigation.AlbumsNavigationDestinat
 import com.shady.mygalleryapp.feature.albums.ui.AlbumsRoute
 import com.shady.mygalleryapp.feature.images.navigation.ImagesNavigationDestination
 import com.shady.mygalleryapp.feature.images.ui.ImagesRoute
+import com.shady.mygalleryapp.feature.videos.navigation.VideosNavigationDestination
+import com.shady.mygalleryapp.feature.videos.ui.VideosRoute
 import com.shady.mygalleryapp.main.ui.GalleryAppState
 import kotlinx.coroutines.launch
 
@@ -29,6 +31,9 @@ fun GalleryNavHost(
     ) {
         composable(ImagesNavigationDestination.registerIn(appState)) {
             ImagesRoute()
+        }
+        composable(VideosNavigationDestination.registerIn(appState)) {
+            VideosRoute()
         }
         composable(AlbumsNavigationDestination.registerIn(appState)) {
             AlbumsRoute(

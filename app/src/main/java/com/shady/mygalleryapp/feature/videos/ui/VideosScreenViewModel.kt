@@ -1,4 +1,4 @@
-package com.shady.mygalleryapp.feature.images.ui
+package com.shady.mygalleryapp.feature.videos.ui
 
 import android.content.Context
 import androidx.lifecycle.viewModelScope
@@ -16,34 +16,34 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class ImagesScreenViewModel @Inject constructor(
+class VideosScreenViewModel @Inject constructor(
     @ApplicationContext context: Context,
     private val repository: MediaStoreRepository,
 ) : MediaObservingViewModel(context) {
 
-    private val uiStateInternal: MutableStateFlow<ImagesScreenUiState> =
-        MutableStateFlow(ImagesScreenUiState.Loading)
+    private val uiStateInternal: MutableStateFlow<VideosScreenUiState> =
+        MutableStateFlow(VideosScreenUiState.Loading)
 
-    val uiState: StateFlow<ImagesScreenUiState>
+    val uiState: StateFlow<VideosScreenUiState>
         get() = uiStateInternal
 
-    fun updateMedia(silent: Boolean = uiState.value is ImagesScreenUiState.Images) {
+    fun updateMedia(silent: Boolean = uiState.value is VideosScreenUiState.Videos) {
         currentJob?.cancel()
         currentJob = viewModelScope.launch {
             if (!silent) {
-                uiStateInternal.value = ImagesScreenUiState.Loading
+                uiStateInternal.value = VideosScreenUiState.Loading
             }
             try {
-                val files = withContext(Dispatchers.Default) { repository.getAllImages() }
+                val files = withContext(Dispatchers.Default) { repository.getAllVideos() }
                 if (files.isNotEmpty()) {
-                    uiStateInternal.value = ImagesScreenUiState.Images(files)
+                    uiStateInternal.value = VideosScreenUiState.Videos(files)
                 } else {
-                    uiStateInternal.value = ImagesScreenUiState.Empty
+                    uiStateInternal.value = VideosScreenUiState.Empty
                 }
             } catch (e: Exception) {
                 if (!silent) {
                     excludeCancellation(e) {
-                        uiStateInternal.value = ImagesScreenUiState.Error(e)
+                        uiStateInternal.value = VideosScreenUiState.Error(e)
                     }
                 }
             }

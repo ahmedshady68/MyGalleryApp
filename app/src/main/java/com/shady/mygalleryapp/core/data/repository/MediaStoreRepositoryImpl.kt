@@ -69,17 +69,39 @@ class MediaStoreRepositoryImpl(private val context: Context) : MediaStoreReposit
         }
     }
 
-    override suspend fun getFiles(bucketId: Long): List<MediaStoreFile> {
+    override suspend fun getFiles(albumId: Long): List<MediaStoreFile> {
         val imageFiles = collectFiles(
             MediaType.Image,
-            bucketId
+            albumId
         )
         val videoFiles = collectFiles(
             MediaType.Video,
-            bucketId
+            albumId
         )
         val files = ArrayList<MediaStoreFile>(imageFiles.size + videoFiles.size)
         files.addAll(imageFiles)
+        files.addAll(videoFiles)
+        files.sortByDescending { file -> file.dateAdded }
+        return files
+    }
+
+    override suspend fun getAllImages(albumId: Long): List<MediaStoreFile> {
+        val imageFiles = collectFiles(
+            MediaType.Image,
+            albumId
+        )
+        val files = ArrayList<MediaStoreFile>(imageFiles.size)
+        files.addAll(imageFiles)
+        files.sortByDescending { file -> file.dateAdded }
+        return files
+    }
+
+    override suspend fun getAllVideos(albumId: Long): List<MediaStoreFile> {
+        val videoFiles = collectFiles(
+            MediaType.Video,
+            albumId
+        )
+        val files = ArrayList<MediaStoreFile>(videoFiles.size)
         files.addAll(videoFiles)
         files.sortByDescending { file -> file.dateAdded }
         return files
