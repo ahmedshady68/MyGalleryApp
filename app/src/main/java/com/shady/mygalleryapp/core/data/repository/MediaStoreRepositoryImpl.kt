@@ -52,7 +52,7 @@ class MediaStoreRepositoryImpl(private val context: Context) : MediaStoreReposit
                 val id = c.getLong(idColumn)
                 files += MediaStoreFile(
                     id = id,
-                    bucketId = c.getLong(bucketIdColumn),
+                    albumId = c.getLong(bucketIdColumn),
                     dateAdded = c.getLong(dateAddedColumn) * 1000L,
                     mediaType = mediaType,
                     mimeType = c.getString(mimeTypeColumn) ?: when (mediaType) {

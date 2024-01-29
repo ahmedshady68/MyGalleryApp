@@ -10,7 +10,7 @@ import com.shady.mygalleryapp.core.ui.icon.GalleryIcons
 
 object AlbumsNavigationDestination: TopLevelNavigationDestination {
 
-    override val routeBase: String = "albums"
+    override val routeBase: String = "buckets"
 
     override val arguments: List<NamedNavArgument> = emptyList()
 

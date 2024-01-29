@@ -7,6 +7,8 @@ import com.shady.mygalleryapp.core.navigation.buildRoute
 import com.shady.mygalleryapp.core.navigation.composable
 import com.shady.mygalleryapp.core.navigation.navigate
 import com.shady.mygalleryapp.core.navigation.registerIn
+import com.shady.mygalleryapp.feature.album.navigation.AlbumNavigationDestination
+import com.shady.mygalleryapp.feature.album.ui.AlbumRoute
 import com.shady.mygalleryapp.feature.albums.navigation.AlbumsNavigationDestination
 import com.shady.mygalleryapp.feature.albums.ui.AlbumsRoute
 import com.shady.mygalleryapp.feature.images.navigation.ImagesNavigationDestination
@@ -33,12 +35,24 @@ fun GalleryNavHost(
                 onAlbumClick = { _, bucket ->
                     appState.coroutineScope.launch {
                         appState.navController.navigate(
-                            AlbumsNavigationDestination,
+                            AlbumNavigationDestination,
                             bucket.id,
                             bucket.name
                         )
                     }
                 },
+            )
+        }
+        composable(AlbumNavigationDestination.registerIn(appState)) { backStackEntry ->
+            val albumId = backStackEntry.arguments?.getLong(
+                AlbumNavigationDestination.Arguments.BUCKET_ID,
+                Long.MIN_VALUE
+            ) ?: Long.MIN_VALUE
+            val albumName =
+                backStackEntry.arguments?.getString(AlbumNavigationDestination.Arguments.BUCKET_NAME)
+            AlbumRoute(
+                id = albumId,
+                name = albumName,
             )
         }
     }

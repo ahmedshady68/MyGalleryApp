@@ -4,7 +4,7 @@ import android.net.Uri
 
 data class MediaStoreFile(
     val id: Long,
-    val bucketId: Long,
+    val albumId: Long,
     val dateAdded: Long,
     val mediaType: MediaType,
     val mimeType: String,
