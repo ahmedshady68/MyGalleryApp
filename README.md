@@ -19,9 +19,10 @@ In this branch you'll find:
 
 ## Screenshots
 <img src="https://github.com/ahmedshady68/MyGalleryApp/assets/8076006/cb00f527-3023-4225-9d98-5b6f90d849dc" width= "200">
+<img src="https://github.com/ahmedshady68/MyGalleryApp/assets/8076006/d49d0ba3-a645-470c-86db-9ab5104ade73" width= "200">
 <img src="https://github.com/ahmedshady68/MyGalleryApp/assets/8076006/72472452-d638-48c0-99ff-77c41a182e58" width= "200">
 <img src="https://github.com/ahmedshady68/MyGalleryApp/assets/8076006/30fa0a97-b89d-4148-a043-c338cf3e961e" width= "200">
-<img src="https://github.com/ahmedshady68/MyGalleryApp/assets/8076006/d49d0ba3-a645-470c-86db-9ab5104ade73" width= "200">
+
 
 
 
