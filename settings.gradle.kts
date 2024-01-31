@@ -11,6 +11,12 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
     }
+    versionCatalogs {
+        // App (project-level) version catalog
+        create("gallery") {
+            from(files("gradle/gallery.versions.toml"))
+        }
+    }
 }
 
 rootProject.name = "MyGalleryApp"

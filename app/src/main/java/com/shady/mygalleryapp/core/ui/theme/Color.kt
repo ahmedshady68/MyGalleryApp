@@ -1,4 +1,4 @@
-package com.shady.mygalleryapp.ui.theme
+package com.shady.mygalleryapp.core.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
