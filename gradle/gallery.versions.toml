@@ -1,6 +1,6 @@
 [versions]
 android-application = "8.2.2"
-java = "1.8"
+java = "17"
 kotlin = "1.9.22"
 kotlin-coroutines = "1.7.3"
 kotlin-ksp = "1.9.22-1.0.17"

@@ -39,7 +39,6 @@ fun VideosRoute(
 
 @Composable
 fun ImagesScreen(
-    viewModel: VideosScreenViewModel = hiltViewModel(),
     uiState: VideosScreenUiState,
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
