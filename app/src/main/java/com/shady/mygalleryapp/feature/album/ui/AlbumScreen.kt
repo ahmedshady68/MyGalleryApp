@@ -60,13 +60,12 @@ fun AlbumScreen(
             }
 
             AlbumScreenUiState.Loading -> {
-                // GalleryLoadingIndicator(modifier = Modifier.matchParentSize())
+                GalleryLoadingIndicator(modifier = Modifier.matchParentSize())
             }
 
             is AlbumScreenUiState.Album -> {
                 GalleryMediaVerticalGrid(
                     files = uiState.files,
-                    modifier = Modifier.matchParentSize(),
                     overlayTop = true,
                     overlayBottom = false,
                 )
