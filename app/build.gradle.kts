@@ -70,4 +70,5 @@ dependencies {
     ksp(gallery.bundles.hilt.compiler)
     debugImplementation(gallery.bundles.androidx.compose.tooling)
     implementation(gallery.bundles.androidx.arch.core)
+    androidTestImplementation(gallery.androidx.compose.ui.test.junit)
 }
