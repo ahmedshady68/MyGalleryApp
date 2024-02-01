@@ -18,15 +18,11 @@ import com.shady.mygalleryapp.core.data.model.MediaStoreFile
 @Composable
 fun GalleryMediaVerticalGrid(
     files: List<MediaStoreFile>,
-    modifier: Modifier = Modifier,
     overlayTop: Boolean = false,
     overlayBottom: Boolean = false,
 ) {
     val filesUpdated by rememberUpdatedState(files)
     GalleryLazyVerticalGrid(
-        modifier = modifier.semantics {
-            testTag = "media_grid"
-        },
         overlayTop = overlayTop,
         overlayBottom = overlayBottom,
     ) {

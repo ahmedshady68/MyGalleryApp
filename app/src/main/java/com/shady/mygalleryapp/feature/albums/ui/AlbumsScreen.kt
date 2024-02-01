@@ -32,6 +32,7 @@ import com.shady.mygalleryapp.core.ui.component.GalleryAsyncImage
 import com.shady.mygalleryapp.core.ui.component.GalleryCenteredMessage
 import com.shady.mygalleryapp.core.ui.component.GalleryErrorMessage
 import com.shady.mygalleryapp.core.ui.component.GalleryLazyVerticalGrid
+import com.shady.mygalleryapp.core.ui.component.GalleryLoadingIndicator
 import com.shady.mygalleryapp.core.ui.component.GalleryTopAppBar
 import com.shady.mygalleryapp.feature.albums.navigation.AlbumsNavigationDestination
 import kotlinx.coroutines.CoroutineScope
@@ -76,7 +77,7 @@ fun AlbumsScreen(
             }
 
             AlbumsScreenUiState.Loading -> {
-                // GalleryLoadingIndicator(modifier = Modifier.matchParentSize())
+                GalleryLoadingIndicator(modifier = Modifier.matchParentSize())
             }
 
             is AlbumsScreenUiState.Albums -> {

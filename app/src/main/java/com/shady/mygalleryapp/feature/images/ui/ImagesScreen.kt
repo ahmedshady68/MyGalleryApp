@@ -16,6 +16,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.shady.mygalleryapp.R
 import com.shady.mygalleryapp.core.ui.component.GalleryCenteredMessage
 import com.shady.mygalleryapp.core.ui.component.GalleryErrorMessage
+import com.shady.mygalleryapp.core.ui.component.GalleryLoadingIndicator
 import com.shady.mygalleryapp.core.ui.component.GalleryMediaVerticalGrid
 import com.shady.mygalleryapp.core.ui.component.GalleryTopAppBar
 import com.shady.mygalleryapp.feature.images.navigation.ImagesNavigationDestination
@@ -51,13 +52,12 @@ fun ImagesScreen(
             }
 
             ImagesScreenUiState.Loading -> {
-                // GalleryLoadingIndicator(modifier = Modifier.matchParentSize())
+                GalleryLoadingIndicator(modifier = Modifier.matchParentSize())
             }
 
             is ImagesScreenUiState.Images -> {
                 GalleryMediaVerticalGrid(
                     files = uiState.files,
-                    modifier = Modifier.matchParentSize(),
                     overlayTop = true,
                     overlayBottom = true,
                 )
